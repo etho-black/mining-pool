@@ -29,19 +29,15 @@ type UnlockerConfig struct {
 }
 
 const minDepth = 16
-const byzantiumHardForkHeight = 4370000
-const constantinopleHardForkHeight = 7280000
 
-var homesteadReward = math.MustParseBig256("5000000000000000000")
-var byzantiumReward = math.MustParseBig256("3000000000000000000")
-var constantinopleReward = math.MustParseBig256("2000000000000000000")
+var baseReward = math.MustParseBig256("8000000000000000000")
 
 // Donate 10% from pool fees to developers
-const donationFee = 10.0
+const donationFee = 0.0
 const donationAccount = "0x796150b96df22e0097fb57239d6504107b11c430"
 
 // Donate 10% from pool fees to etc developers
-const donationFee2 = 11.1
+const donationFee2 = 0.0
 const donationAccount2 = "0x796150b96df22e0097fb57239d6504107b11c430"
 
 type BlockUnlocker struct {
@@ -540,13 +536,34 @@ func weiToShannonInt64(wei *big.Rat) int64 {
 }
 
 func getConstReward(height int64) *big.Int {
-	if height >= constantinopleHardForkHeight {
-		return new(big.Int).Set(constantinopleReward)
+	if (height >= 1000000) && (height < 2000000) {
+		return big.NewInt(8e+18)
+	} else if (height >= 2000000) && (height < 2700000) {
+		return big.NewInt(6.4e+18)
+	} else if (height >= 2700000) && (height < 3000000) {
+		return big.NewInt(5.6e+18)
+	} else if (height >= 3000000) && (height < 3800000) {
+		return big.NewInt(4.5e+18)
+	} else if (height >= 3800000) && (height < 4000000) {
+		return big.NewInt(2.4e+18)
+	} else if (height >= 4000000) && (height < 5000000) {
+		return big.NewInt(1.8e+18)
+	} else if (height >= 5000000) && (height < 6000000) {
+		return big.NewInt(1.25e+18)
+	} else if (height >= 6000000) && (height < 7000000) {
+		return big.NewInt(0.8e+18)
+	} else if (height >= 7000000) && (height < 8000000) {
+		return big.NewInt(0.6e+18)
+	} else if (height >= 8000000) && (height < 9000000) {
+		return big.NewInt(0.45e+18)
+	} else if (height >= 9000000) && (height < 10000000) {
+		return big.NewInt(0.3e+18)
+	} else if (height >= 10000000) && (height < 11000000) {
+		return big.NewInt(0.3e+18)
+	} else if (height >= 11000000) {
+		return big.NewInt(0.3e+18)
 	}
-	if height >= byzantiumHardForkHeight {
-		return new(big.Int).Set(byzantiumReward)
-	}
-	return new(big.Int).Set(homesteadReward)
+	return new(big.Int).Set(baseReward)
 }
 
 func getRewardForUncle(height int64) *big.Int {
