@@ -1,4 +1,4 @@
-## ETHEREUM POOL FOR GO >=1.11
+## ETHER-1 POOL FOR GO >=1.11
 
 
 **Please refer the Readme from master branch for detailed description**
